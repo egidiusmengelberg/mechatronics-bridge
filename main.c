@@ -47,13 +47,13 @@ int main(void)
 	// init hbridge
 
 	// set timer4 interrupt at 2Hz
-	TCCR4A = 0;													 // set entire TCCR1A register to 0
-	TCCR4B = 0;													 // same for TCCR1B
-	TCNT4 = 0;													 // initialize counter value to 0
-	OCR4A = 7812;												 // = (16*10^6) / (1*1024) - 1 / 2 (must be <65536) set compare match register for 2hz increments
-	TCCR4B |= (1 << WGM12);							 // turn on CTC mode
-	TCCR4B |= (1 << CS12) | (1 << CS10); // Set CS12 and CS10 bits for 1024 prescaler
-	TIMSK4 |= (1 << OCIE4A);						 // enable timer compare interrupt
+	TCCR4A = 0;								// set entire TCCR1A register to 0
+	TCCR4B = 0;								// same for TCCR1B
+	TCNT4 = 0;								// initialize counter value to 0
+	OCR4A = 7812;							// = (16*10^6) / (1*1024) - 1 / 2 (must be <65536) set compare match register for 2hz increments
+	TCCR4B |= (1 << WGM12);					// turn on CTC mode
+	TCCR4B |= (1 << CS12) | (1 << CS10);	// Set CS12 and CS10 bits for 1024 prescaler
+	TIMSK4 |= (1 << OCIE4A);				// enable timer compare interrupt
 
 	sei(); // allow interrupts
 
@@ -137,20 +137,23 @@ ISR(TIMER4_COMPA_vect)
 		state |= state_estop;
  }
 
- if ((start_pin & (1 << start_num)) == (1 << start_num) {
+ if ((start_pin & (1 << start_num)) == (1 << start_num)) {
 		state |= state_boat_detected;
  }
 
  // if boat detected set boat_detected bit in state
- if (readDistance1() < boat_seen_distance) {
+ if ((distance_1_pin & (1<<distance_1_num)) == 0) {
     state |= state_boat_detected;
  }
 
- if (readDistance2() < boat_seen_distance) {
+ if ((distance_2_pin & (1<<distance_2_num)) == 0) {
     state |= state_boat_detected;
  }
 
  if(state & state_barrier_lights) {
 		ToggleBarrierLights();
+ } else {
+	//turn off barrier lights
+	barrier_led_port &= ~(0 << barrier_led_num);
  }
 }
