@@ -44,8 +44,8 @@ int main(void)
 	InitDistance();
 
 	ServoInit();
-	SetServo1(0);
-	SetServo2(0);
+	SetServo1(-50);
+	SetServo2(-50);
 	// init hbridge
 
 	// set timer4 interrupt at 2Hz
@@ -61,73 +61,73 @@ int main(void)
 
 	while (1)
 	{
-		//while not in estop mode
-		while (state & ~state_estop)
+		// check for boats
+		if (!(distance_1_pin & (1<<distance_1_num)))
 		{
-			// check for boats
-			if (state & state_boat_detected)
+
+			// set lights
+			SetReadyToOpenLights(&state);
+			// wait until bridge is empty
+			// while (ReadWeight() > empty_bridge_weight)
+			// {
+			// }
+
+			// sound alarm and close barriers
+			buzzer_port &= ~(1 << buzzer_num);
+			_delay_ms(1000);
+			for (signed char i = -50; i <= 100; i++)
 			{
-
-				// set lights
-				SetReadyToOpenLights(&state);
-
-				// wait until bridge is empty
-				// while (ReadWeight() > empty_bridge_weight)
-				// {
-				// }
-
-				// sound alarm and close barriers
-				buzzer_port &= ~(1 << buzzer_num);
-				for (signed char i = -100; i <= 100; i++)
-				{
-					SetServo1(i);
-					SetServo2(i);
-					_delay_ms(5);
-				}
-				buzzer_port |= (1 << buzzer_num);
-
-				// open bridge till endstop
-				while ((endstop_open_pin & (1 << endstop_open_num)) == ~(1 << endstop_open_num))
-				{
-					// run motor open
-					MotorRun(0);
-				}
-
-				MotorStop();
-
-				// set waterway lights
-				SetOpenedLights();
-
-				// wait for boat to pass
-				// delay for some simulated time
-				_delay_ms(10000);
-
-				// turn off waterway lights
-				SetReadyToCloseLights();
-
-				// close bridge till endstop
-				while ((endstop_close_pin & (1 << endstop_close_num)) == ~(1 << endstop_close_num))
-				{
-					MotorRun(1);
-				}
-				MotorStop();
-
-				// sound alarm and open barriers
-				buzzer_port &= ~(1 << buzzer_num);
-				for (signed char i = 100; i >= -100; i--)
-				{
-					SetServo1(i);
-					SetServo2(i);
-					_delay_ms(5);
-				}
-				buzzer_port |= (1 << buzzer_num);
-
-				// lights off
-				SetStandByLights(&state);
-
-				// boat has passed so disable state flag
-				state &= ~state_boat_detected;
+				SetServo1(i);
+				SetServo2(i);
+				_delay_ms(5);
 			}
+			_delay_ms(1000);
+			buzzer_port |= (1 << buzzer_num);
+
+			_delay_ms(1000);
+			// open bridge till endstop
+			while (endstop_open_pin & (1 << endstop_open_num))
+			{
+				// run motor open
+				MotorRun(0);
+			}
+
+			MotorStop();
+			_delay_ms(1000);
+			// set waterway lights
+			SetOpenedLights();
+			// wait for boat to pass
+			// delay for some simulated time
+			_delay_ms(10000);
+
+			// turn off waterway lights
+			SetReadyToCloseLights();
+			_delay_ms(1000);
+
+			// close bridge till endstop
+			while (endstop_close_pin & (1 << endstop_close_num))
+			{
+				MotorRun(1);
+			}
+			MotorStop();
+			_delay_ms(1000);
+			// sound alarm and open barriers
+			buzzer_port &= ~(1 << buzzer_num);
+			_delay_ms(1000);
+			for (signed char i = 100; i >= -50; i--)
+			{
+				SetServo1(i);
+				SetServo2(i);
+				_delay_ms(5);
+			}
+			_delay_ms(1000);
+			buzzer_port |= (1 << buzzer_num);
+
+			// lights off
+			SetStandByLights(&state);
+
+			// boat has passed so disable state flag
+			state &= ~state_boat_detected;
 		}
 		
 	}
@@ -145,7 +145,7 @@ ISR(TIMER4_COMPA_vect)
  }
 
  // if boat detected set boat_detected bit in state
- if ((distance_1_pin & (1<<distance_1_num)) == 0) {
+ if (distance_1_pin & (1<<distance_1_num)) {
     state |= state_boat_detected;
  }
 

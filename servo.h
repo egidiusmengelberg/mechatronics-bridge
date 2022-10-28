@@ -15,13 +15,13 @@
 
 // The settings below are for the Mega, modify
 // in case you want to use other pins
-#define PORT_1	PORTE
-#define PIN_1	PE3
-#define DDR_1	DDRE
+#define PORT_1	PORTL
+#define PIN_1	PL5
+#define DDR_1	DDRL
 
-#define PORT_2	PORTH
-#define PIN_2	PH3
-#define DDR_2	DDRH
+#define PORT_2	PORTL
+#define PIN_2	PL7
+#define DDR_2	DDRL
 
 void ServoInit(void);
 void SetServo1(signed char percentage);
