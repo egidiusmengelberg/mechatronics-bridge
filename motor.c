@@ -6,8 +6,10 @@ void MotorInit() {
     motor_r_ddr |= (1 << motor_r_num);
 
     //turn motor off
-    motor_l_port &= ~(1 << motor_l_num);
-    motor_r_port &= ~(1 << motor_r_num);
+    motor_l_port |= (1 << motor_l_num);
+    motor_r_port |= (1 << motor_r_num);
+
+
 }
 
 void MotorRun(char dir) {

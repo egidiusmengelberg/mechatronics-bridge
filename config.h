@@ -12,23 +12,23 @@
 #define boat_red_led_port PORTA
 #define boat_red_led_pin PINA
 #define boat_red_led_ddr DDRA
-#define boat_red_led_num 0 // D22
+#define boat_red_led_num 1 // D23
 
 #define boat_green_led_port PORTA
 #define boat_green_led_pin PINA
 #define boat_green_led_ddr DDRA
-#define boat_green_led_num 0 // D22
+#define boat_green_led_num 2 // D24
 
 // weight sensor
-#define weight_data_port PORTA
-#define weight_data_pin PINA
-#define weight_data_ddr DDRA
-#define weight_data_num 0 // D22
+#define weight_data_port PORTG
+#define weight_data_pin PING
+#define weight_data_ddr DDRG
+#define weight_data_num 0 // D41
 
-#define weight_clock_port PORTA
-#define weight_clock_pin PINA
-#define weight_clock_ddr DDRA
-#define weight_clock_num 1 // D23
+#define weight_clock_port PORTG
+#define weight_clock_pin PING
+#define weight_clock_ddr DDRG
+#define weight_clock_num 1 // D40
 
 // distance sensors
 #define distance_1_port PORTK
@@ -53,15 +53,15 @@
 #define start_num 2 // A2
 
 // endstops
-#define endstop_open_port PORTF
-#define endstop_open_pin PINF
-#define endstop_open_ddr DDRF
-#define endstop_open_num 1
+#define endstop_open_port PORTB
+#define endstop_open_pin PINB
+#define endstop_open_ddr DDRB
+#define endstop_open_num 0 //D53
 
-#define endstop_close_port PORTF
-#define endstop_close_pin PINF
-#define endstop_close_ddr DDRF
-#define endstop_close_num 1
+#define endstop_close_port PORTB
+#define endstop_close_pin PINB
+#define endstop_close_ddr DDRB
+#define endstop_close_num 1 //D52
 
 // buzzer
 #define buzzer_port PORTE
@@ -70,15 +70,15 @@
 #define buzzer_num 5 // D3
 
 // motor
-#define motor_l_port PORTE
-#define motor_l_pin PINE
-#define motor_l_ddr DDRF
-#define motor_l_num 5 // D3
+#define motor_l_port PORTD
+#define motor_l_pin PIND
+#define motor_l_ddr DDRD
+#define motor_l_num 7 // D36
 
-#define motor_r_port PORTE
-#define motor_r_pin PINE
-#define motor_r_ddr DDRF
-#define motor_r_num 5 // D3
+#define motor_r_port PORTG
+#define motor_r_pin PING
+#define motor_r_ddr DDRG
+#define motor_r_num 2 // D37
 
 // settings
 #define empty_bridge_weight 1000000UL

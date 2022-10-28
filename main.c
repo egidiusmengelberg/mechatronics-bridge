@@ -30,6 +30,8 @@ int main(void)
 	// init endstops
 	endstop_open_ddr &= ~(0 << endstop_open_num);
 	endstop_close_ddr &= ~(0 << endstop_close_num);
+	endstop_open_port |= (1 << endstop_open_num);
+	endstop_close_port |= (1 << endstop_close_num);
 
 	// init buzzer
 	buzzer_ddr |= (1 << buzzer_num);
@@ -59,7 +61,7 @@ int main(void)
 
 	while (1)
 	{
-		// while not in estop mode
+		//while not in estop mode
 		while (state & ~state_estop)
 		{
 			// check for boats
@@ -70,9 +72,9 @@ int main(void)
 				SetReadyToOpenLights(&state);
 
 				// wait until bridge is empty
-				while (ReadWeight() > empty_bridge_weight)
-				{
-				}
+				// while (ReadWeight() > empty_bridge_weight)
+				// {
+				// }
 
 				// sound alarm and close barriers
 				buzzer_port &= ~(1 << buzzer_num);
@@ -85,7 +87,7 @@ int main(void)
 				buzzer_port |= (1 << buzzer_num);
 
 				// open bridge till endstop
-				while ((endstop_open_pin & (1 << endstop_open_num)) == (1 << endstop_open_num))
+				while ((endstop_open_pin & (1 << endstop_open_num)) == ~(1 << endstop_open_num))
 				{
 					// run motor open
 					MotorRun(0);
@@ -104,7 +106,7 @@ int main(void)
 				SetReadyToCloseLights();
 
 				// close bridge till endstop
-				while ((endstop_close_pin & (1 << endstop_close_num)) == (1 << endstop_close_num))
+				while ((endstop_close_pin & (1 << endstop_close_num)) == ~(1 << endstop_close_num))
 				{
 					MotorRun(1);
 				}
@@ -127,6 +129,7 @@ int main(void)
 				state &= ~state_boat_detected;
 			}
 		}
+		
 	}
 }
 

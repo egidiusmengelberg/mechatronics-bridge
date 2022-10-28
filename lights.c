@@ -24,7 +24,7 @@ void SetReadyToOpenLights(char* state) {
 
 void SetOpenedLights() {
     //on green off red
-    boat_red_led_port &= ~(0 << boat_red_led_num);
+    boat_red_led_port &= ~(1 << boat_red_led_num);
     boat_green_led_port |= (1 << boat_green_led_num);
 }
 
