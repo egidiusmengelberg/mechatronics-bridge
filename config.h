@@ -92,7 +92,6 @@
 
 // settings
 #define empty_bridge_weight 1000000UL
-#define boat_seen_distance 500
 
 #define state_estop 0x01
 #define state_boat_detected 0x02
