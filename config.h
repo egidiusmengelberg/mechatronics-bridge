@@ -30,15 +30,15 @@
 #define boat_green_led_num2 6 // D31
 
 // weight sensor
-#define weight_data_port PORTG
-#define weight_data_pin PING
-#define weight_data_ddr DDRG
-#define weight_data_num 0 // D41
+#define weight_data_port PORTC
+#define weight_data_pin PINC
+#define weight_data_ddr DDRC
+#define weight_data_num 3 // D34
 
-#define weight_clock_port PORTG
-#define weight_clock_pin PING
-#define weight_clock_ddr DDRG
-#define weight_clock_num 1 // D40
+#define weight_clock_port PORTL
+#define weight_clock_pin PINL
+#define weight_clock_ddr DDRL
+#define weight_clock_num 2 // D47
 
 // distance sensors
 #define distance_1_port PORTD

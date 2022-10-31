@@ -76,14 +76,13 @@ int main(void)
 			_delay_ms(2000);
 			buzzer_port &= ~(1 << buzzer_num);
 			_delay_ms(1000);
-			buzzer_port |= (1 << buzzer_num);
-			_delay_ms(1000);
 			for (signed char i = -50; i <= 100; i++)
 			{
 				SetServo1(i);
 				SetServo2(i);
 				_delay_ms(5);
 			}
+			buzzer_port |= (1 << buzzer_num);
 		
 
 			_delay_ms(1000);
