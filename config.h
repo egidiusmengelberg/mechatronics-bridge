@@ -46,10 +46,10 @@
 #define distance_1_ddr DDRD
 #define distance_1_num 7 // D38
 
-#define distance_2_port PORTK
-#define distance_2_pin PINK
-#define distance_2_ddr DDRK
-#define distance_2_num 1 // A9
+#define distance_2_port PORTC
+#define distance_2_pin PINC
+#define distance_2_ddr DDRC
+#define distance_2_num 1 // D36
 
 // buttons
 #define estop_port PORTF

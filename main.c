@@ -62,7 +62,7 @@ int main(void)
 	while (1)
 	{
 		// check for boats
-		if (!(distance_1_pin & (1<<distance_1_num)))
+		if (!(distance_1_pin & (1<<distance_1_num)) || !(distance_2_pin & (1<<distance_2_num)) )
 		{
 
 			// set lights
@@ -73,7 +73,10 @@ int main(void)
 			// }
 
 			// sound alarm and close barriers
+			_delay_ms(2000);
 			buzzer_port &= ~(1 << buzzer_num);
+			_delay_ms(1000);
+			buzzer_port |= (1 << buzzer_num);
 			_delay_ms(1000);
 			for (signed char i = -50; i <= 100; i++)
 			{
@@ -81,8 +84,7 @@ int main(void)
 				SetServo2(i);
 				_delay_ms(5);
 			}
-			_delay_ms(1000);
-			buzzer_port |= (1 << buzzer_num);
+		
 
 			_delay_ms(1000);
 			// open bridge till endstop
